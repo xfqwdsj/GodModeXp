@@ -1,0 +1,3 @@
+[submodule "libxservicemanager"]
+	path = libxservicemanager
+	url = https://github.com/xfqwdsj/XServiceManager.git
