@@ -28,7 +28,6 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.kaisar.xposed.godmode.R;
 import com.kaisar.xposed.godmode.injection.bridge.GodModeManager;
 import com.kaisar.xposed.godmode.injection.util.Logger;
 import com.kaisar.xposed.godmode.model.SharedViewModel;
@@ -41,6 +40,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+
+import xyz.xfqlittlefan.godmode.R;
 
 /**
  * Created by jrsen on 17-10-29.
@@ -58,7 +59,7 @@ public final class ViewRuleDetailsFragment extends PreferenceFragmentCompat impl
     public void setViewRule(ViewRule viewRule) {
         mViewRule = viewRule;
     }
-    
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_rule_details);

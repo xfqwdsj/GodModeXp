@@ -1,5 +1,7 @@
 package com.kaisar.xposed.godmode.injection.weiget;
 
+import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,8 +18,6 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.kaisar.xposed.godmode.injection.ViewHelper;
-
-import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
 
 /**
  * Created by jrsen on 17-10-13.
@@ -47,6 +47,13 @@ public final class MaskView extends View {
         setTag(TAG_GM_CMP);
     }
 
+    public static MaskView makeMaskView(Context context) {
+        MaskView maskView = new MaskView(context);
+        ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.MATCH_PARENT, ViewGroup.MarginLayoutParams.MATCH_PARENT);
+        maskView.setLayoutParams(layoutParams);
+        return maskView;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (mMaskDrawable != null) {
@@ -67,16 +74,20 @@ public final class MaskView extends View {
         return mMaskDrawable.getBounds();
     }
 
-    private void setMaskDrawable(Drawable drawable) {
-        mMaskDrawable = drawable;
-    }
-
     private Drawable getMaskDrawable() {
         return mMaskDrawable;
     }
 
+    private void setMaskDrawable(Drawable drawable) {
+        mMaskDrawable = drawable;
+    }
+
     public void setMarkColor(int color) {
         mMarkColor = color;
+    }
+
+    public boolean isMarked() {
+        return isMarked;
     }
 
     public void setMarked(boolean enable) {
@@ -87,10 +98,6 @@ public final class MaskView extends View {
                 mMaskDrawable.clearColorFilter();
             }
         }
-    }
-
-    public boolean isMarked() {
-        return isMarked;
     }
 
     public void attachToContainer(ViewGroup container) {
@@ -111,13 +118,6 @@ public final class MaskView extends View {
 
     public void setMaskOverlay(int color) {
         setMaskDrawable(new ColorDrawable(color));
-    }
-
-    public static MaskView makeMaskView(Context context) {
-        MaskView maskView = new MaskView(context);
-        ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.MATCH_PARENT, ViewGroup.MarginLayoutParams.MATCH_PARENT);
-        maskView.setLayoutParams(layoutParams);
-        return maskView;
     }
 
 }

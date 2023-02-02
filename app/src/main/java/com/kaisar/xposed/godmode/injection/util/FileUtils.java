@@ -124,7 +124,7 @@ public final class FileUtils {
         return file.delete();
     }
 
-    public static boolean rmdir(String dirPath){
+    public static boolean rmdir(String dirPath) {
         return delete(new File(dirPath));
     }
 

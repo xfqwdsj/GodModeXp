@@ -1,4 +1,3 @@
-
 package com.kaisar.xposed.godmode.util;
 
 import static com.kaisar.xposed.godmode.injection.util.CommonUtils.recycleNullableBitmap;
@@ -42,50 +41,6 @@ public final class BackupUtils {
 
     //Don't instantiate this class
     private BackupUtils() {
-    }
-
-    public static class BackupException extends Exception {
-        public BackupException() {
-        }
-
-        public BackupException(String message) {
-            super(message);
-        }
-
-        public BackupException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public BackupException(Throwable cause) {
-            super(cause);
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.N)
-        public BackupException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-            super(message, cause, enableSuppression, writableStackTrace);
-        }
-    }
-
-    public static class RestoreException extends Exception {
-        public RestoreException() {
-        }
-
-        public RestoreException(String message) {
-            super(message);
-        }
-
-        public RestoreException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public RestoreException(Throwable cause) {
-            super(cause);
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.N)
-        public RestoreException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-            super(message, cause, enableSuppression, writableStackTrace);
-        }
     }
 
     public static void backupRules(Uri toUri, String packageName, List<ViewRule> viewRules) throws BackupException {
@@ -159,6 +114,50 @@ public final class BackupUtils {
             } finally {
                 FileUtils.rmdir(restoreDir.getPath());
             }
+        }
+    }
+
+    public static class BackupException extends Exception {
+        public BackupException() {
+        }
+
+        public BackupException(String message) {
+            super(message);
+        }
+
+        public BackupException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public BackupException(Throwable cause) {
+            super(cause);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        public BackupException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
+    }
+
+    public static class RestoreException extends Exception {
+        public RestoreException() {
+        }
+
+        public RestoreException(String message) {
+            super(message);
+        }
+
+        public RestoreException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public RestoreException(Throwable cause) {
+            super(cause);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        public RestoreException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
         }
     }
 }

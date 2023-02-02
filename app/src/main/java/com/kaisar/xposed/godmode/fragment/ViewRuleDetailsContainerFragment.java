@@ -26,7 +26,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.kaisar.xposed.godmode.R;
 import com.kaisar.xposed.godmode.model.SharedViewModel;
 import com.kaisar.xposed.godmode.rule.ViewRule;
 import com.kaisar.xposed.godmode.util.BackupUtils;
@@ -38,13 +37,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import xyz.xfqlittlefan.godmode.R;
+
 public final class ViewRuleDetailsContainerFragment extends PreferenceFragmentCompat {
 
     private int mCurIndex;
-
+    private final OnPageChangeCallback mCallback = new OnPageChangeCallback() {
+        @Override
+        public void onPageSelected(int position) {
+            mCurIndex = position;
+        }
+    };
     private ViewPager2 mViewPager;
     private SharedViewModel mSharedViewModel;
-
     private ActivityResultLauncher<String> mBackupLauncher;
 
     @Override
@@ -83,16 +88,9 @@ public final class ViewRuleDetailsContainerFragment extends PreferenceFragmentCo
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     }
 
-    private final OnPageChangeCallback mCallback = new OnPageChangeCallback() {
-        @Override
-        public void onPageSelected(int position) {
-            mCurIndex = position;
-        }
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        DetailFragmentStateAdapter detailFragmentStateAdapter= new DetailFragmentStateAdapter(this);
+        DetailFragmentStateAdapter detailFragmentStateAdapter = new DetailFragmentStateAdapter(this);
         detailFragmentStateAdapter.setData(mSharedViewModel.actRules.getValue());
         mViewPager = (ViewPager2) inflater.inflate(R.layout.fragment_rule_details_container, container, false);
         mViewPager.setAdapter(detailFragmentStateAdapter);
@@ -164,7 +162,8 @@ public final class ViewRuleDetailsContainerFragment extends PreferenceFragmentCo
                     String filename = String.format(Locale.getDefault(), "%s_%s.gzip", label, sdf.format(new Date()));
                     mBackupLauncher.launch(filename);
                     return true;
-                } catch (ActivityNotFoundException | PackageManager.NameNotFoundException | BackupUtils.BackupException e) {
+                } catch (ActivityNotFoundException | PackageManager.NameNotFoundException |
+                         BackupUtils.BackupException e) {
                     Snackbar.make(requireView(), R.string.snack_bar_msg_backup_rule_fail, Snackbar.LENGTH_SHORT).show();
                     return false;
                 }

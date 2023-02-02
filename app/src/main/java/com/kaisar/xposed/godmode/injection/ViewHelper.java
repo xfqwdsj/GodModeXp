@@ -1,5 +1,7 @@
 package com.kaisar.xposed.godmode.injection;
 
+import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -17,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.TextView;
 
-import com.kaisar.xposed.godmode.BuildConfig;
 import com.kaisar.xposed.godmode.injection.util.Logger;
 import com.kaisar.xposed.godmode.rule.ViewRule;
 import com.kaisar.xposed.godmode.util.Preconditions;
@@ -28,8 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 import de.robv.android.xposed.XposedHelpers;
-
-import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
+import xyz.xfqlittlefan.godmode.BuildConfig;
 
 /**
  * Created by jrsen on 17-10-13.

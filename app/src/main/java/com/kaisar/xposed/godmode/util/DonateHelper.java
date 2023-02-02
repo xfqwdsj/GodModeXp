@@ -8,17 +8,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
-import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.kaisar.xposed.godmode.R;
+import androidx.appcompat.app.AlertDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import xyz.xfqlittlefan.godmode.R;
 
 public final class DonateHelper {
 

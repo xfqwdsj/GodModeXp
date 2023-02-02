@@ -6,7 +6,8 @@ import android.util.AttributeSet;
 import androidx.preference.PreferenceViewHolder;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.kaisar.xposed.godmode.R;
+
+import xyz.xfqlittlefan.godmode.R;
 
 
 public final class ProgressPreference extends androidx.preference.Preference {

@@ -19,6 +19,17 @@ import java.util.Arrays;
 @Keep
 public final class ViewRule implements Parcelable, Cloneable {
 
+    public static final Creator<ViewRule> CREATOR = new Creator<ViewRule>() {
+        @Override
+        public ViewRule createFromParcel(Parcel in) {
+            return new ViewRule(in);
+        }
+
+        @Override
+        public ViewRule[] newArray(int size) {
+            return new ViewRule[size];
+        }
+    };
     //生成规则的应用名称
     @SerializedName("label")
     public final String label;
@@ -33,12 +44,6 @@ public final class ViewRule implements Parcelable, Cloneable {
     //规则版本
     @SerializedName("version_code")
     public final int versionCode;
-    //规则图片
-    @SerializedName("img_path")
-    public String imagePath;
-    //规则别名
-    @SerializedName("alias")
-    public String alias;
     //相对于window的x坐标
     @SerializedName("x")
     public final int x;
@@ -69,12 +74,18 @@ public final class ViewRule implements Parcelable, Cloneable {
     //控件描述
     @SerializedName("description")
     public final String description;
-    //View可见性
-    @SerializedName("visibility")
-    public int visibility;
     //规则记录时间
     @SerializedName("timestamp")
     public final long timestamp;
+    //规则图片
+    @SerializedName("img_path")
+    public String imagePath;
+    //规则别名
+    @SerializedName("alias")
+    public String alias;
+    //View可见性
+    @SerializedName("visibility")
+    public int visibility;
 
     public ViewRule(String label, String packageName, String matchVersionName, int matchVersionCode, int versionCode, String imagePath, String alias, int x, int y, int width, int height, int[] depth, String activityClass, String viewClass, String resourceName, String text, String description, int visibility, long timestamp) {
         this.label = label;
@@ -98,7 +109,7 @@ public final class ViewRule implements Parcelable, Cloneable {
         this.timestamp = timestamp;
     }
 
-    protected ViewRule(Parcel in) {
+    private ViewRule(Parcel in) {
         label = in.readString();
         packageName = in.readString();
         matchVersionName = in.readString();
@@ -147,18 +158,6 @@ public final class ViewRule implements Parcelable, Cloneable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<ViewRule> CREATOR = new Creator<ViewRule>() {
-        @Override
-        public ViewRule createFromParcel(Parcel in) {
-            return new ViewRule(in);
-        }
-
-        @Override
-        public ViewRule[] newArray(int size) {
-            return new ViewRule[size];
-        }
-    };
 
     @NonNull
     @Override

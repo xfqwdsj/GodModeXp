@@ -1,5 +1,9 @@
 package com.kaisar.xposed.godmode.injection.hook;
 
+import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
+import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
+import static com.kaisar.xposed.godmode.injection.util.CommonUtils.recycleNullableBitmap;
+
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -36,10 +40,6 @@ import java.util.List;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 
-import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
-import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
-import static com.kaisar.xposed.godmode.injection.util.CommonUtils.recycleNullableBitmap;
-
 /**
  * Created by jrsen on 17-12-6.
  */
@@ -48,7 +48,8 @@ public final class EventHandlerHook extends XC_MethodHook implements Property.On
 
     private static final int MARK_COLOR = Color.argb(150, 139, 195, 75);
     private static final int OVERLAY_COLOR = Color.argb(150, 255, 0, 0);
-
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private final List<WeakReference<View>> mViewNodes = new ArrayList<>();
     private boolean mIsInEditMode;
     private float mX, mY;
     private Bitmap mSnapshot;
@@ -58,14 +59,11 @@ public final class EventHandlerHook extends XC_MethodHook implements Property.On
     private boolean mHasBlockEvent;
     private boolean mLongClick;
     private CheckForLongPress mPendingCheckForLongPress;
-    private final Handler mHandler = new Handler(Looper.getMainLooper());
-
     private volatile boolean mMultiPointLock;
     private volatile boolean mDragging;
-
-    private final List<WeakReference<View>> mViewNodes = new ArrayList<>();
     private int mCurrentViewIndex = 0;
     private volatile boolean mKeySelecting;
+    private float mDeltaX, mDeltaY;
 
     @Override
     protected void beforeHookedMethod(MethodHookParam param) {
@@ -88,8 +86,6 @@ public final class EventHandlerHook extends XC_MethodHook implements Property.On
             }
         }
     }
-
-    private float mDeltaX, mDeltaY;
 
     private boolean dispatchTouchEvent(View v, MotionEvent event) {
         int action = event.getActionMasked();

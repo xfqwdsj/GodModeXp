@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import androidx.preference.PreferenceViewHolder;
 
-import com.kaisar.xposed.godmode.R;
+import xyz.xfqlittlefan.godmode.R;
 
 /**
  * Created by jrsen on 17-10-19.

@@ -1,5 +1,7 @@
 package com.kaisar.xposed.godmode.injection.weiget;
 
+import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -15,26 +17,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
-import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
-
 /**
  * Created by jrsen on 17-10-13.
  */
 public final class ParticleView extends View {
 
-    private ValueAnimator mParticleAnimator;
     //动画持续时间
     public int duration = 4000;
+    private ValueAnimator mParticleAnimator;
     //动画监听
     private OnAnimationListener mOnAnimationListener;
     //画笔
     private Paint mPaint;
     //所有粒子
     private Particle[][] mParticles;
-
-    public void setOnAnimationListener(OnAnimationListener mOnAnimationListener) {
-        this.mOnAnimationListener = mOnAnimationListener;
-    }
 
     public ParticleView(Context context) {
         this(context, null);
@@ -52,6 +48,10 @@ public final class ParticleView extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
         setTag(TAG_GM_CMP);
         initWidget();
+    }
+
+    public void setOnAnimationListener(OnAnimationListener mOnAnimationListener) {
+        this.mOnAnimationListener = mOnAnimationListener;
     }
 
     private void initWidget() {

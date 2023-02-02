@@ -24,7 +24,6 @@ import com.kaisar.xposed.godmode.util.BackupUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,11 +31,11 @@ import retrofit2.Callback;
 
 public class SharedViewModel extends ViewModel {
 
-    private final Handler mMainHandler = new Handler(Looper.getMainLooper());
-    private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
     public final MutableLiveData<AppRules> appRules = new MutableLiveData<>();
     public final MutableLiveData<List<ViewRule>> actRules = new MutableLiveData<>();
     public final MutableLiveData<String> selectedPackage = new MutableLiveData<>();
+    private final Handler mMainHandler = new Handler(Looper.getMainLooper());
+    private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
 
     public SharedViewModel() {
         LocalRepository.addObserver("*", new IObserver.Stub() {
@@ -110,12 +109,6 @@ public class SharedViewModel extends ViewModel {
         return pm.getComponentEnabledSetting(cmp) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
     }
 
-    public interface ResultCallback {
-        void onSuccess();
-
-        void onFailure(Exception e);
-    }
-
     public void restoreRules(Uri uri, ResultCallback callback) {
         mExecutor.execute(() -> {
             try {
@@ -136,6 +129,12 @@ public class SharedViewModel extends ViewModel {
                 mMainHandler.post(() -> callback.onFailure(e));
             }
         });
+    }
+
+    public interface ResultCallback {
+        void onSuccess();
+
+        void onFailure(Exception e);
     }
 
 }

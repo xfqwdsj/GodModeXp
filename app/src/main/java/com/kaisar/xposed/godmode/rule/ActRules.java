@@ -14,6 +14,18 @@ import java.util.List;
 @Keep
 public final class ActRules extends HashMap<String, List<ViewRule>> implements Parcelable {
 
+    public static final Creator<ActRules> CREATOR = new Creator<ActRules>() {
+        @Override
+        public ActRules createFromParcel(Parcel in) {
+            return new ActRules(in);
+        }
+
+        @Override
+        public ActRules[] newArray(int size) {
+            return new ActRules[size];
+        }
+    };
+
     public ActRules() {
     }
 
@@ -21,7 +33,7 @@ public final class ActRules extends HashMap<String, List<ViewRule>> implements P
         super(initialCapacity);
     }
 
-    protected ActRules(Parcel in) {
+    private ActRules(Parcel in) {
         in.readMap(this, getClass().getClassLoader());
     }
 
@@ -34,17 +46,5 @@ public final class ActRules extends HashMap<String, List<ViewRule>> implements P
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<ActRules> CREATOR = new Creator<ActRules>() {
-        @Override
-        public ActRules createFromParcel(Parcel in) {
-            return new ActRules(in);
-        }
-
-        @Override
-        public ActRules[] newArray(int size) {
-            return new ActRules[size];
-        }
-    };
 
 }

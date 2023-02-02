@@ -11,6 +11,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import xyz.xfqlittlefan.godmode.R;
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override

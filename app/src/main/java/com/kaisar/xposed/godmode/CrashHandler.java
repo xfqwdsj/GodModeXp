@@ -28,6 +28,10 @@ public final class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     private final Context mContext;
 
+    CrashHandler(Context context) {
+        mContext = context;
+    }
+
     static void install(Context context) {
         Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(context));
     }
@@ -50,10 +54,6 @@ public final class CrashHandler implements Thread.UncaughtExceptionHandler {
             }
         }
         return null;
-    }
-
-    CrashHandler(Context context) {
-        mContext = context;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.kaisar.xposed.godmode.injection;
 
+import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
+
 import android.app.Activity;
 import android.util.Pair;
 import android.util.SparseArray;
@@ -14,8 +16,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
 
 /**
  * Created by jrsen on 17-10-15.
@@ -144,18 +144,6 @@ public final class ViewController {
             this.layout_params_height = layout_params_height;
         }
 
-        @Override
-        public String toString() {
-            final StringBuffer sb = new StringBuffer("ViewProperty{");
-            sb.append("alpha=").append(alpha);
-            sb.append(", clickable=").append(clickable);
-            sb.append(", visibility=").append(visibility);
-            sb.append(", layout_params_width=").append(layout_params_width);
-            sb.append(", layout_params_height=").append(layout_params_height);
-            sb.append('}');
-            return sb.toString();
-        }
-
         public static ViewProperty create(View view) {
             float alpha = view.getAlpha();
             boolean clickable = view.isClickable();
@@ -164,6 +152,17 @@ public final class ViewController {
             int width = layoutParams != null ? layoutParams.width : 0;
             int height = layoutParams != null ? layoutParams.height : 1;
             return new ViewProperty(alpha, clickable, visibility, width, height);
+        }
+
+        @Override
+        public String toString() {
+            String sb = "ViewProperty{" + "alpha=" + alpha +
+                    ", clickable=" + clickable +
+                    ", visibility=" + visibility +
+                    ", layout_params_width=" + layout_params_width +
+                    ", layout_params_height=" + layout_params_height +
+                    '}';
+            return sb;
         }
     }
 

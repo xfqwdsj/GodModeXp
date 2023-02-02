@@ -16,14 +16,14 @@ public final class GodModeApplication extends Application {
         sApplication = this;
     }
 
+    public static GodModeApplication getApplication() {
+        return sApplication;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         CrashHandler.install(base);
         super.attachBaseContext(base);
-    }
-
-    public static GodModeApplication getApplication() {
-        return sApplication;
     }
 
 }

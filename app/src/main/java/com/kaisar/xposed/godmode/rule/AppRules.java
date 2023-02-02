@@ -14,11 +14,23 @@ import java.util.List;
 @Keep
 public final class AppRules extends HashMap<String, ActRules> implements Parcelable {
 
+    public static final Creator<AppRules> CREATOR = new Creator<AppRules>() {
+        @Override
+        public AppRules createFromParcel(Parcel in) {
+            return new AppRules(in);
+        }
+
+        @Override
+        public AppRules[] newArray(int size) {
+            return new AppRules[size];
+        }
+    };
+
+
     public AppRules() {
     }
 
-
-    protected AppRules(Parcel in) {
+    private AppRules(Parcel in) {
         HashMap<?, ?> hashMap = in.readHashMap(getClass().getClassLoader());
         for (Entry<?, ?> entry : hashMap.entrySet()) {
             String key = (String) entry.getKey();
@@ -38,16 +50,4 @@ public final class AppRules extends HashMap<String, ActRules> implements Parcela
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<AppRules> CREATOR = new Creator<AppRules>() {
-        @Override
-        public AppRules createFromParcel(Parcel in) {
-            return new AppRules(in);
-        }
-
-        @Override
-        public AppRules[] newArray(int size) {
-            return new AppRules[size];
-        }
-    };
 }

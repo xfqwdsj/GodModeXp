@@ -13,6 +13,11 @@ import androidx.annotation.Keep;
 public final class Logger {
 
     private static final String TAG = "GodMode";
+    private final String mName;
+
+    private Logger(String tag) {
+        this.mName = tag;
+    }
 
     public static int v(String tag, String msg) {
         return isLoggable(tag, Log.VERBOSE) ? Log.v(tag, msg) : 0;
@@ -62,10 +67,8 @@ public final class Logger {
         return Log.isLoggable(TAG, level) || Log.isLoggable(tag, level);
     }
 
-    private final String mName;
-
-    private Logger(String tag) {
-        this.mName = tag;
+    public static Logger getLogger(String name) {
+        return new Logger(name);
     }
 
     public void d(String message) {
@@ -90,10 +93,6 @@ public final class Logger {
 
     public void e(String message, Throwable tr) {
         if (isLoggable(TAG, Log.ERROR)) e(mName, String.format("[%s] %s", mName, message), tr);
-    }
-
-    public static Logger getLogger(String name) {
-        return new Logger(name);
     }
 
 }

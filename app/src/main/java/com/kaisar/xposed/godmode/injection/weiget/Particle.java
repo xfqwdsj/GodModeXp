@@ -13,6 +13,8 @@ import java.util.Random;
 public final class Particle {
     //默认小球宽高
     public static final int PART_WH = 8;
+    //用于生成随机数
+    static Random random = new Random();
     //x值
     public float cx;
     //y值
@@ -23,8 +25,6 @@ public final class Particle {
     public int color;
     //透明度
     public float alpha;
-    //用于生成随机数
-    static Random random = new Random();
     //粒子所在的矩形区域
     public Rect mBound;
 
@@ -42,19 +42,6 @@ public final class Particle {
         particle.cy = bound.top + PART_WH * row;
 
         return particle;
-    }
-
-    public void update(float factor) {
-        cx = cx + factor * random.nextInt(mBound.width()) * (random.nextFloat() - 0.5f);
-
-        cy = cy + factor * (mBound.height() / (random.nextInt(4) + 1));
-
-        radius = radius - factor * random.nextInt(3);
-        ;
-
-        if (radius <= 0)
-            radius = 0;
-        alpha = 1f - factor;
     }
 
     public static Particle[][] generateParticles(Bitmap bitmap, Rect bound) {
@@ -77,5 +64,17 @@ public final class Particle {
             }
         }
         return particles;
+    }
+
+    public void update(float factor) {
+        cx = cx + factor * random.nextInt(mBound.width()) * (random.nextFloat() - 0.5f);
+
+        cy = cy + factor * (mBound.height() / (random.nextInt(4) + 1));
+
+        radius = radius - factor * random.nextInt(3);
+
+        if (radius <= 0)
+            radius = 0;
+        alpha = 1f - factor;
     }
 }

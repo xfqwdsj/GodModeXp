@@ -1,5 +1,7 @@
 package com.kaisar.xposed.godmode.injection.hook;
 
+import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
+
 import android.annotation.SuppressLint;
 import android.os.Build;
 
@@ -12,8 +14,6 @@ import java.util.Optional;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
-
-import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
 
 public final class DisplayPropertiesHook extends XC_MethodHook implements Property.OnPropertyChangeListener<Boolean> {
 

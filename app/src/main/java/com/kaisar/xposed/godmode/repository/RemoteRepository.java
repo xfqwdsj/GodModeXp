@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kaisar.xposed.godmode.BuildConfig;
 import com.kaisar.xposed.godmode.bean.GroupInfo;
 
 import java.util.List;
@@ -14,6 +13,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import xyz.xfqlittlefan.godmode.BuildConfig;
 
 public class RemoteRepository {
 

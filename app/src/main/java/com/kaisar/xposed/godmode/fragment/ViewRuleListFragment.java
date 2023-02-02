@@ -35,7 +35,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.snackbar.Snackbar;
-import com.kaisar.xposed.godmode.R;
 import com.kaisar.xposed.godmode.model.SharedViewModel;
 import com.kaisar.xposed.godmode.rule.ViewRule;
 
@@ -45,6 +44,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import xyz.xfqlittlefan.godmode.R;
 
 /**
  * Created by jrsen on 17-10-29.
@@ -131,6 +132,35 @@ public final class ViewRuleListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_app_rules, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_delete_rules) {
+            if (!mSharedViewModel.deleteAppRules(mPackageName)) {
+                Snackbar.make(requireView(), R.string.snack_bar_msg_revert_rule_fail, Snackbar.LENGTH_SHORT).show();
+            }
+        } else if (item.getItemId() == R.id.menu_backup_rules) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.getDefault());
+                PackageManager packageManager = requireContext().getPackageManager();
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(mPackageName, 0);
+                String label = applicationInfo.loadLabel(packageManager).toString();
+                String filename = String.format(Locale.getDefault(), "%s_%s.gzip", label, sdf.format(new Date()));
+                mBackupLauncher.launch(filename);
+                return true;
+            } catch (ActivityNotFoundException | PackageManager.NameNotFoundException e) {
+                Snackbar.make(requireView(), R.string.snack_bar_msg_backup_rule_fail, Snackbar.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private static final class Callback extends DiffUtil.Callback {
 
         final List<ViewRule> mOldData, mNewData;
@@ -167,13 +197,13 @@ public final class ViewRuleListFragment extends Fragment {
         private final int mLayoutResId = androidx.preference.R.layout.preference_material;
         private final List<ViewRule> mData = new ArrayList<>();
 
+        public List<ViewRule> getData() {
+            return mData;
+        }
+
         public void setData(List<ViewRule> newData) {
             mData.clear();
             mData.addAll(newData);
-        }
-
-        public List<ViewRule> getData() {
-            return mData;
         }
 
         @NonNull
@@ -231,35 +261,6 @@ public final class ViewRuleListFragment extends Fragment {
                 summaryView = itemView.findViewById(android.R.id.summary);
             }
         }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_app_rules, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_delete_rules) {
-            if (!mSharedViewModel.deleteAppRules(mPackageName)) {
-                Snackbar.make(requireView(), R.string.snack_bar_msg_revert_rule_fail, Snackbar.LENGTH_SHORT).show();
-            }
-        } else if (item.getItemId() == R.id.menu_backup_rules) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.getDefault());
-                PackageManager packageManager = requireContext().getPackageManager();
-                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(mPackageName, 0);
-                String label = applicationInfo.loadLabel(packageManager).toString();
-                String filename = String.format(Locale.getDefault(), "%s_%s.gzip", label, sdf.format(new Date()));
-                mBackupLauncher.launch(filename);
-                return true;
-            } catch (ActivityNotFoundException | PackageManager.NameNotFoundException e) {
-                Snackbar.make(requireView(), R.string.snack_bar_msg_backup_rule_fail, Snackbar.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

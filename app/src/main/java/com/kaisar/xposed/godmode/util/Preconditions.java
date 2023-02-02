@@ -1,8 +1,9 @@
 package com.kaisar.xposed.godmode.util;
 
 import android.graphics.Bitmap;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 /**
  * Simple static methods to be called at the start of your own methods to verify
@@ -29,8 +30,7 @@ public final class Preconditions {
      * @return the string reference that was validated
      * @throws IllegalArgumentException if {@code string} is empty
      */
-    public static @NonNull
-    <T extends CharSequence> T checkStringNotEmpty(final T string) {
+    public static @NonNull <T extends CharSequence> T checkStringNotEmpty(final T string) {
         if (TextUtils.isEmpty(string)) {
             throw new IllegalArgumentException();
         }
@@ -45,8 +45,7 @@ public final class Preconditions {
      * @return the non-null reference that was validated
      * @throws NullPointerException if {@code reference} is null
      */
-    public static @NonNull
-    <T> T checkNotNull(final T reference) {
+    public static @NonNull <T> T checkNotNull(final T reference) {
         if (reference == null) {
             throw new NullPointerException();
         }
@@ -65,10 +64,10 @@ public final class Preconditions {
      * }
      * </pre></blockquote>
      *
-     * @param reference     the object reference to check for nullity
-     * @param message detail message to be used in the event that a {@code
-     *                NullPointerException} is thrown
-     * @param <T> the type of the reference
+     * @param reference the object reference to check for nullity
+     * @param message   detail message to be used in the event that a {@code
+     *                  NullPointerException} is thrown
+     * @param <T>       the type of the reference
      * @return {@code reference} if not {@code null}
      * @throws NullPointerException if {@code reference} is {@code null}
      */
@@ -78,13 +77,13 @@ public final class Preconditions {
         return reference;
     }
 
-    public static <T> T optionDefault(T reference, T defaultValue){
+    public static <T> T optionDefault(T reference, T defaultValue) {
         if (reference == null)
             return defaultValue;
         return reference;
     }
 
-    public static CharSequence optionDefault(CharSequence reference, CharSequence defaultValue){
+    public static CharSequence optionDefault(CharSequence reference, CharSequence defaultValue) {
         if (TextUtils.isEmpty(reference))
             return defaultValue;
         return reference;

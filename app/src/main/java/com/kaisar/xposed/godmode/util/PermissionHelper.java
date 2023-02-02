@@ -1,5 +1,7 @@
 package com.kaisar.xposed.godmode.util;
 
+import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
+
 import android.app.Activity;
 import android.content.pm.PackageManager;
 
@@ -11,8 +13,6 @@ import com.kaisar.xposed.godmode.injection.util.Logger;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
-
-import static com.kaisar.xposed.godmode.GodModeApplication.TAG;
 
 public class PermissionHelper {
 

@@ -40,8 +40,9 @@ import de.robv.android.xposed.XposedHelpers;
 
 public final class DispatchTouchEventHook extends XC_MethodHook {
 
+    public static volatile boolean mDragging;
     private final int MARK_COLOR = Color.argb(150, 139, 195, 75);
-
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
     private float mX, mY;
     private Bitmap mSnapshot;
     private ViewRule mViewRule;
@@ -50,11 +51,7 @@ public final class DispatchTouchEventHook extends XC_MethodHook {
     private boolean mHasBlockEvent;
     private boolean mLongClick;
     private CheckForLongPress mPendingCheckForLongPress;
-    private final Handler mHandler = new Handler(Looper.getMainLooper());
-
     private volatile boolean mMultiPointLock;
-
-    public static volatile boolean mDragging;
 
     @Override
     protected void beforeHookedMethod(MethodHookParam param) {

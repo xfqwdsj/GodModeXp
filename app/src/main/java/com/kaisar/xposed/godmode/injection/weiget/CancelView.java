@@ -1,5 +1,7 @@
 package com.kaisar.xposed.godmode.injection.weiget;
 
+import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -14,10 +16,9 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 
-import com.kaisar.xposed.godmode.R;
 import com.kaisar.xposed.godmode.injection.util.GmResources;
 
-import static com.kaisar.xposed.godmode.injection.ViewHelper.TAG_GM_CMP;
+import xyz.xfqlittlefan.godmode.R;
 
 /**
  * Created by jrsen on 17-11-4.
@@ -29,9 +30,9 @@ public final class CancelView extends View {
     private final Paint rectPaint = new Paint();
     private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private CharSequence text;
-    private Rect statusBarBounds = new Rect();
-    private Rect textLayoutBounds = new Rect();
-    private Rect textBounds = new Rect();
+    private final Rect statusBarBounds = new Rect();
+    private final Rect textLayoutBounds = new Rect();
+    private final Rect textBounds = new Rect();
 
     public CancelView(Context context) {
         this(context, null);

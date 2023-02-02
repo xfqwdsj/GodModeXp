@@ -9,8 +9,8 @@ import java.util.List;
 
 public final class Property<V> {
 
-    private V v;
     private final List<OnPropertyChangeListener<V>> listeners;
+    private V v;
 
     {
         listeners = new ArrayList<>();

@@ -15,9 +15,9 @@ import com.kaisar.xposed.godmode.rule.ActRules;
 
 public final class ManagerObserver extends IObserver.Stub implements Handler.Callback {
 
-    private final Handler mHandler = new Handler(Looper.getMainLooper(), this);
     private static final int ACTION_EDIT_MODE_CHANGED = 0;
     private static final int ACTION_VIEW_RULES_CHANGED = 1;
+    private final Handler mHandler = new Handler(Looper.getMainLooper(), this);
 
     @Override
     public void onEditModeChanged(boolean enable) {

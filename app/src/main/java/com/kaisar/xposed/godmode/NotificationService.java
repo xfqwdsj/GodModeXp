@@ -20,6 +20,8 @@ import androidx.preference.PreferenceManager;
 
 import com.kaisar.xposed.godmode.injection.bridge.GodModeManager;
 
+import xyz.xfqlittlefan.godmode.R;
+
 /**
  * Created by jrsen on 17-10-26.
  */
